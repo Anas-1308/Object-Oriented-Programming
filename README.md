@@ -48,10 +48,12 @@ class Car:
         print("Adding car to database...")
 
 c1 = Car('blue', 'bmw')
+Note: Python does not support multiple constructor definitions in the same class like some other languages. If multiple __init__ methods are defined, the last one will overwrite the previous ones.
+
 Attributes and Methods
 Class Attributes: Shared by all instances of the class (e.g., name = 'no name').
 
-Instance (Object) Attributes: Unique to each individual object created from the class (defined via self).
+Instance (Object) Attributes: Unique to each individual object created from the class, defined via self.
 
 Methods: Functions defined inside a class that operate on the object's data.
 
@@ -63,13 +65,13 @@ class Student:
         self.name = name  # Instance Attribute
         self.year = year
         
-    def welcome(self):
+    def Welcome(self):
         print(f"Welcome {self.name}")
         
-    def display_year(self):
+    def DisplayYear(self):
         print(f"{self.name} is in {self.year} year")
 Static Methods
-Static methods perform an operation but don't need to access or modify the class or instance state. They do not accept the implicit self argument and are defined using the @staticmethod decorator.
+Static methods perform an operation but do not require access to instance or class data (they don't use self). They are declared using the @staticmethod decorator.
 
 Python
 class StaticExample:
@@ -77,43 +79,46 @@ class StaticExample:
     def hello():
         print('hello')
 
-StaticExample.hello()
+s = StaticExample()
+s.hello()
 The 4 Pillars of OOP
 1. Abstraction
-Hiding complex implementation details and exposing only the essential interface to the user.
+Hiding internal implementation details of a class and showing only essential features to the user.
 
 Python
 class Car:
     def __init__(self):
         self.acc = False
         self.brk = False
+        self.clutch = False
         
-    def start(self):
+    def Start(self):
         self.acc = False
-        print("Car has started")  # User only sees the essential output
+        self.clutch = False
+        print("Car has started")  # User only sees this essential message
 2. Encapsulation (Public vs Private)
 Wrapping data and methods into a single unit and controlling accessibility.
 
-Public Entities: Accessible anywhere inside or outside the class.
+Public Entities: Accessible anywhere inside or outside the class by default.
 
-Private Entities: Declared using a double underscore prefix (__). They can only be accessed internally within the class structure.
+Private Entities: Declared using a double underscore prefix (__) to prevent access from outside the class.
 
 Python
 class Account:
     def __init__(self, accno, pswrd):
-        self.accno = accno       # Public
-        self.__pswrd = pswrd     # Private
+        self.accno = accno       # Public entity
+        self.__pswrd = pswrd     # Private entity
         
-    def login(self, trial):
-        if trial == self.__pswrd:   # Internal access allowed
+    def LoginMethod(self, trial):
+        if trial == self.__pswrd:   # Internal access within class is allowed
             print("Logged in")
 3. Inheritance
-The capability of a new class (derived/child) to inherit properties and behaviors from an existing class (base/parent).
+The capability of a new class (child) to inherit properties and behaviors from an existing class (parent).
 
 Types Covered:
-Single Inheritance: Child inherits directly from a single parent class.
+Single Inheritance: A child class inherits properties directly from a single parent class.
 
-Multi-level Inheritance: A class inherits from a child class, creating a chain of inheritance (Grandparent -> Parent -> Child).
+Multi-level Inheritance: A chain of inheritance where a class inherits from a derived child class.
 
 super() Method: Used to access and invoke methods/constructors from the parent class.
 
@@ -128,10 +133,10 @@ class Engineer(Employee):
     def __init__(self, name, age):
         self.name = name
         self.age = age
-        # Call the parent constructor explicitly
+        # Access parent constructor using super()
         super().__init__("Engineer", "IT", "200000") 
 4. Polymorphism (Operator Overloading)
-Polymorphism allows different classes to be treated as if they were instances of the same class. A common application is Operator Overloading, where built-in operators (like + or -) are given custom behaviors by implementing special dunder methods like __add__ or __sub__.
+Allowing distinct types of objects to respond to the same interface or operation. Custom behavior for built-in operators is achieved using special dunder methods like __add__ or __sub__.
 
 Python
 class Complex:
@@ -141,10 +146,12 @@ class Complex:
         
     # Overloading the '+' operator
     def __add__(self, num2):
-        return Complex(self.real + num2.real, self.img + num2.img)
+        newReal = self.real + num2.real
+        newimg = self.img + num2.img 
+        return Complex(newReal, newimg)
 Utility Features
 The del Keyword
-Used to explicitly destroy references to objects, variables, or elements, freeing up system memory. Trying to reference a deleted object will trigger an AttributeError or NameError.
+Used to explicitly delete references to objects. Attempting to reference a deleted object will trigger an error since the instance no longer exists.
 
 Python
 class Student:
@@ -153,4 +160,4 @@ class Student:
 
 s1 = Student("Anas")
 del s1 
-# print(s1.name) -> Raises Error because the instance no longer exists
+# print(s1.name) -> Raises Error because s1 has been deleted
