@@ -27,8 +27,8 @@ class Student:
 # Creating instances (objects)
 s1 = Student()
 print(s1.name)  # Output: Anas
-
-CONSTRUCTORS (__init__)
+```
+## CONSTRUCTORS (__init__)
 Constructors are special methods used to initialize an object's state when it is created.
 
 Default Constructor: A basic constructor that takes no arguments except self.
